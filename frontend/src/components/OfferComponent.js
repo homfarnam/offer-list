@@ -7,7 +7,6 @@ const OfferComponent = () => {
   const offers = useSelector((state) => state.allOffers.offers);
   const renderList = offers.map((offer) => {
     const { name, prices, image, id } = offer;
-    console.log('offer: ', offer);
     return (
       <Card className='my-3 p-3 rounded' key={id}>
         {image?.map((item) => {
