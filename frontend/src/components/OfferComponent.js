@@ -6,18 +6,20 @@ import { Card } from 'react-bootstrap';
 const OfferComponent = () => {
   const offers = useSelector((state) => state.allOffers.offers);
   const renderList = offers.map((offer) => {
-    const { description, prices, images, id } = offer;
-
+    const { name, prices, image, id } = offer;
+    console.log('offer: ', offer);
     return (
       <Card className='my-3 p-3 rounded' key={id}>
-        <Card.Img src={images} variant='top' />
+        {image?.map((item) => {
+          return <Card.Img src={item.url} key={item.url} variant='top' />;
+        })}
         <Card.Body>
           <Card.Title as='div'>
-            <strong>{description}</strong>
+            <strong>{name}</strong>
           </Card.Title>
           <Card.Text as='h5'>
             <div className='my-3'>
-              <h1>{prices.totalPrice}</h1>
+              <h1>{prices.amount.value}</h1>
             </div>
           </Card.Text>
         </Card.Body>

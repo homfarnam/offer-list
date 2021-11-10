@@ -14,18 +14,18 @@ const OfferListing = () => {
     const response = await fetch('http://cdn.sixt.io/codingtask/offers.json');
     const data = await response.json();
     const renderList = data.offers.map((offer) => ({
+      id: offer.id,
       name: offer.description,
       prices: offer.prices.totalPrice,
-      image: offer.images.small,
+      image: offer.splashImages,
     }));
-    console.log(renderList);
-    dispatch(setOffers(data.offers));
+    // console.log('renderList: ', renderList);
+    dispatch(setOffers(renderList));
   };
 
   useEffect(() => {
     fetchOffers();
   }, []);
-  console.log('Offers: ', offers);
   return (
     <Card className='my-3 p-3 rounded'>
       <OfferComponent />
