@@ -1,26 +1,32 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import OfferComponent from './OfferComponent';
 import { setOffers } from '../redux/actions/offerActions';
 
 const OfferListing = () => {
-  const offers = useSelector((state) => state);
+  // const offers = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const fetchOffers = async () => {
-    const response = await fetch('http://cdn.sixt.io/codingtask/offers.json');
-    const data = await response.json();
-    const renderList = data.offers.map((offer) => ({
-      id: offer.id,
-      name: offer.description,
-      prices: offer.prices.totalPrice,
-      image: offer.splashImages,
-    }));
+    await fetch('http://cdn.sixt.io/codingtask/offers.json')
+      .then((response) => response.json())
+      .then((response) => {
+        const renderList = response.offers.map((offer) => ({
+          id: offer.id,
+          name: offer.description,
+          prices: offer.prices.totalPrice,
+          image: offer.splashImages,
+        }));
+        dispatch(setOffers(renderList));
+      })
+      .catch((error) => {
+        console.log('error: ', error);
+      });
+
     // console.log('renderList: ', renderList);
-    dispatch(setOffers(renderList));
   };
 
   useEffect(() => {
