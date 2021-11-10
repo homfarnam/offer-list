@@ -10,7 +10,7 @@ const OfferComponent = () => {
     return (
       <Card className='my-3 p-3 rounded' key={id}>
         {image?.map((item) => {
-          return <Card.Img src={item.url} key={item.url} variant='top' />;
+          return <Card.Img src={item?.url} key={item?.url} variant='top' />;
         })}
         <Card.Body>
           <Card.Title as='div'>
@@ -18,7 +18,7 @@ const OfferComponent = () => {
           </Card.Title>
           <Card.Text as='h5'>
             <div className='my-3'>
-              <h1>{prices.amount.value}</h1>
+              <h1>{prices?.amount?.value}</h1>
             </div>
           </Card.Text>
         </Card.Body>
